@@ -1,0 +1,148 @@
+@font-face {
+  font-family: 'omori';
+  src: url('../fonts/OMORI_GAME2.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Saitamaar";
+  src: url('../fonts/Saitamaar-Regular.woff2') format("woff2");
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+body {
+  background-color: #111111
+}
+
+h1 {
+  font-family: 'omori', sans-serif;
+  letter-spacing: 0.3rem;
+  font-size: 7vh;
+  margin-top: 2vh;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  text-align: center;
+  padding-bottom: 2vh;
+  text-shadow:
+      -2px -2px 0 #000,
+       2px -2px 0 #000,
+      -2px  2px 0 #000,
+       2px  2px 0 #000,
+      -2px  0px 0 #000,
+       2px  0px 0 #000,
+       0px -2px 0 #000,
+       0px  2px 0 #000;
+}
+
+#specialHeader {
+  transform: translateY(0vw); 
+}
+
+.content {
+  color: white;
+  font-family: "Saitamaar", sans-serif;
+  font-size: 20px;
+  z-index: 1;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+
+}
+
+.background {
+  position: fixed; /* background doesn't move while scrolling */
+  top: 0;
+  left: 0;
+  width: 100vw; /* 100% of viewport width */
+  height: 100vh; /* 100% of viewport height */
+  background-image: url('../images/background.webp');
+  background-size: cover; /* cover not stretch */
+  background-repeat: no-repeat; /* no 1990s tiling */
+  background-position: center; /* centered */
+  pointer-events: none; /* mouse pass through */
+  z-index: -1; /* behind everything */
+}
+
+.bg1 {
+  left: 0;
+}
+
+.bg2 {
+left: 100vw; /* positioned offscreen to the right */
+}
+
+#bottom-right-message {
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  padding: 30px;
+  padding-bottom: 20px;
+  color: white;
+  font-family: "Saitamaar", sans-serif;
+  font-size: 20px;
+  pointer-events: auto; /* mouse input taken */
+}
+
+#onePxOutline {
+  text-shadow: 
+  -1px -1px 0 #fff,  
+   1px -1px 0 #fff,  
+  -1px  1px 0 #fff,  
+   1px  1px 0 #fff,  
+  -1px  0px 0 #fff,  
+   1px  0px 0 #fff,  
+   0px -1px 0 #fff,  
+   0px  1px 0 #fff;
+}
+
+#backButton {
+  position: fixed;
+  width: 6vw;  
+  height: auto;  /* auto scale height */
+  margin-left: 4vw;
+  margin-top: -30vh;
+  z-index: 2;
+}
+
+.contentBox {
+  width: 60vw;
+  height: 100vh;
+  position: fixed;
+  top: 13vh;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(24, 10, 31, 0.7);
+  border-radius: 25px;
+  padding: 80px;
+}
+
+#backText {
+  left: 10px;
+  top: 0;
+  margin: 0;
+  position: fixed;
+  font-family: 'omori', sans-serif;
+  letter-spacing: 0.3rem;
+  font-size: 4vh;
+  color: white;
+}
+
+.backButtonContainer {
+  position: fixed;
+}
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.fade-in.show {
+  opacity: 1;
+}
+
