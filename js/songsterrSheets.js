@@ -22,7 +22,10 @@ document.getElementById('url_input').addEventListener('submit', async function(e
             return;
         }
 
-        create_instrument_selection_form(response.json())
+        const instrumentNames = await response.json();
+        console.log("instrumentNames: ", instrumentNames);
+        console.log("isArray: ", Array.isArray(instrumentNames));
+        create_instrument_selection_form(instrumentNames);
 
         // Receive blob and trigger download
         /*
