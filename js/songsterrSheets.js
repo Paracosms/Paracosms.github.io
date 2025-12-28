@@ -22,7 +22,7 @@ document.getElementById('url_input').addEventListener('submit', async function(e
             return;
         }
 
-        create_instrument_selection_form(response)
+        create_instrument_selection_form(response.json())
 
         // Receive blob and trigger download
         /*
