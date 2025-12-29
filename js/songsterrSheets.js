@@ -18,8 +18,8 @@ document.getElementById('url_input').addEventListener('submit', async function(e
         });
 
         if (!response.ok) {
-            status.textContent = "Error Code: " + response.status;
-            console.log("error message: " + response.headers);
+            const errorData = await response.json();
+            status.textContent = "Error: " + errorData.message;
             return;
         }
 
