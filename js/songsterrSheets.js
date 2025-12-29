@@ -7,7 +7,7 @@ document.getElementById('url_input').addEventListener('submit', async function(e
     const userInput = document.getElementById('userInput').value;
 
     try {
-        status.textContent = "Processing...";
+        status.textContent = "Processing. This may take a few minutes depending on server inactivity.";
 
         const response = await fetch('https://songsterrsheets.onrender.com', {
             method: 'POST',
