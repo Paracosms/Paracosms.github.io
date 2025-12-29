@@ -18,7 +18,7 @@ document.getElementById('url_input').addEventListener('submit', async function(e
         });
 
         if (!response.ok) {
-            status.textContent = "Error: " + response.status;
+            status.textContent = "Error Code: " + response.status;
             return;
         }
 
@@ -41,7 +41,7 @@ document.getElementById('url_input').addEventListener('submit', async function(e
 
     } catch (err) {
         console.error(err);
-        status.textContent = "An error occurred.";
+        status.textContent = "Error: " + err;
     }
 });
 
