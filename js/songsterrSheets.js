@@ -19,6 +19,7 @@ document.getElementById('url_input').addEventListener('submit', async function(e
 
         if (!response.ok) {
             status.textContent = "Error Code: " + response.status;
+            console.log("error message: " + response.headers);
             return;
         }
 
@@ -51,7 +52,7 @@ function create_instrument_selection_form(instrument_names) {
     // Create label
     const label = document.createElement("label");
     label.setAttribute("for", "instrument_select");
-    label.textContent = "Instrument Selection:";
+    label.textContent = "Instrument Selection: ";
     form.appendChild(label);
 
     // Create select
