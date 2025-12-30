@@ -49,6 +49,7 @@ function create_instrument_selection_form(instrument_names) {
     submit.type = "button";
     submit.id = "submit_instrument";
     submit.textContent = "Convert to .musicxml file";
+    submit.addEventListener("click", handleMusicXMLDownload);
 
     instrument_names.forEach(([title, subtitle], index) => {
         const option = document.createElement("option");
@@ -69,9 +70,7 @@ function create_instrument_selection_form(instrument_names) {
     form.appendChild(submit);
 }
 
-document.getElementById('submit_instrument').addEventListener('click', async function(e) {
-    e.preventDefault();
-
+async function handleMusicXMLDownload() {
     const status = document.getElementById('status');
     const submittedInstrumentIndex = Number(document.getElementById('instrument_select').value);
 
@@ -114,4 +113,4 @@ document.getElementById('submit_instrument').addEventListener('click', async fun
         console.error(err);
         status.textContent = "Error: " + err;
     }
-});
+}
