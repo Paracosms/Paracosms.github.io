@@ -51,7 +51,7 @@ function create_instrument_selection_form(instrument_names) {
     submit.textContent = "Convert to .musicxml file";
     submit.addEventListener("click", handleMusicXMLDownload);
 
-    instrument_names.forEach(([title, subtitle], index) => {
+    instrument_names.forEach(([title, subtitle, json], index) => {
         const option = document.createElement("option");
 
         // if subtitle is empty, show just the title
@@ -59,9 +59,7 @@ function create_instrument_selection_form(instrument_names) {
         option.textContent = subtitle
             ? `${title} [${subtitle}]`
             : title;
-
-        // indexes the option such that the matching #.json note data is easily located
-        option.value = index;
+        option.value = json;
 
         select.appendChild(option);
     });
@@ -72,7 +70,7 @@ function create_instrument_selection_form(instrument_names) {
 
 async function handleMusicXMLDownload() {
     const status = document.getElementById('status');
-    const submittedInstrumentIndex = Number(document.getElementById('instrument_select').value);
+    const select = document.getElementById("instrument_select");
 
     try {
         status.textContent = "Converting instrument data to a .musicxml file.";
@@ -80,7 +78,7 @@ async function handleMusicXMLDownload() {
         const response = await fetch('https://songsterrsheets.onrender.com/musicxml', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ index: submittedInstrumentIndex })
+            body: JSON.stringify({ json_url: select.selectedOptions[0].value})
         });
 
         if (!response.ok) {
@@ -89,11 +87,7 @@ async function handleMusicXMLDownload() {
             return;
         }
 
-
-
-        const select = document.getElementById("instrument_select");
         const rawName = select.selectedOptions[0].textContent;
-
         const safeName = rawName
             .replace(/[\/\\?%*:|"<>]/g, "")
             .replace(/\s+/g, "_")
