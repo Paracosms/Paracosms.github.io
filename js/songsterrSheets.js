@@ -24,8 +24,6 @@ document.getElementById('url_input').addEventListener('submit', async function(e
         }
 
         const instrumentNames = await response.json();
-        console.log("instrumentNames: ", instrumentNames);
-        console.log("isArray: ", Array.isArray(instrumentNames));
         create_instrument_selection_form(instrumentNames);
 
         // Receive blob and trigger download
@@ -49,26 +47,32 @@ document.getElementById('url_input').addEventListener('submit', async function(e
 function create_instrument_selection_form(instrument_names) {
     const form = document.getElementById("instrument_selection");
 
-    // Create label
+    // add selection label
     const label = document.createElement("label");
     label.setAttribute("for", "instrument_select");
     label.textContent = "Instrument Selection: ";
     form.appendChild(label);
 
-    // Create select
+    // create selection interface
     const select = document.createElement("select");
     select.id = "instrument_select";
     select.name = "instrument";
 
+    // create submit button
+    const submit = document.createElement("button");
+    submit.type = "submit";
+    submit.id = "submit_instrument";
+
     instrument_names.forEach(([title, subtitle], index) => {
         const option = document.createElement("option");
 
-        // Build display text
+        // if subtitle is empty, show just the title
+        // otherwise, add in the subtitle after the title such that the option reads "title [subtitle]"
         option.textContent = subtitle
             ? `${title} [${subtitle}]`
             : title;
 
-        // Optional: value attribute
+        // indexes the option such that the matching #.json note data is easily located
         option.value = index;
 
         select.appendChild(option);
@@ -76,3 +80,8 @@ function create_instrument_selection_form(instrument_names) {
 
     form.appendChild(select);
 }
+
+document.getElementById('instrument_selection').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    console.log("Instrument Selection Submitted");
+});
