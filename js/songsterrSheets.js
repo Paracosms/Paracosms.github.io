@@ -62,6 +62,7 @@ function create_instrument_selection_form(instrument_names) {
     const submit = document.createElement("button");
     submit.type = "submit";
     submit.id = "submit_instrument";
+    submit.textContent = "Create .musicxml file";
 
     instrument_names.forEach(([title, subtitle], index) => {
         const option = document.createElement("option");
