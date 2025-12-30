@@ -75,7 +75,7 @@ async function handleMusicXMLDownload() {
     const submittedInstrumentIndex = Number(document.getElementById('instrument_select').value);
 
     try {
-        status.textContent = "Converting file to a .musicxml file.";
+        status.textContent = "Converting instrument data to a .musicxml file.";
 
         const response = await fetch('https://songsterrsheets.onrender.com/musicxml', {
             method: 'POST',
@@ -91,17 +91,24 @@ async function handleMusicXMLDownload() {
 
 
 
-        const blob = await response.blob();
+        const select = document.getElementById("instrument_select");
+        const rawName = select.selectedOptions[0].textContent;
 
-        // Create a temporary download link
-        const url = window.URL.createObjectURL(blob);
+        const safeName = rawName
+            .replace(/[\/\\?%*:|"<>]/g, "")
+            .replace(/\s+/g, "_")
+            .trim();
+
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+
         const a = document.createElement("a");
         a.href = url;
+        a.download = `${safeName}.musicxml`;
         document.body.appendChild(a);
         a.click();
-        a.download = "score.musicxml"
         a.remove();
-        window.URL.revokeObjectURL(url);
+        URL.revokeObjectURL(url);
 
         status.textContent = "Download complete!";
 
