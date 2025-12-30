@@ -74,7 +74,7 @@ document.getElementById('instrument_selection').addEventListener('submit', async
     console.log("Instrument Selection Submitted");
 
     const status = document.getElementById('status');
-    const submittedInstrumentIndex = document.getElementById('instrument_selection').selectedIndex;
+    const submittedInstrumentIndex = Number(document.getElementById('instrument_select').value);
 
     try {
         status.textContent = "Converting file to a .musicxml file.";
