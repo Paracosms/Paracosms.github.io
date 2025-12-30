@@ -79,6 +79,7 @@ function create_instrument_selection_form(instrument_names) {
     });
 
     form.appendChild(select);
+    form.appendChild(submit);
 }
 
 document.getElementById('instrument_selection').addEventListener('submit', async function(e) {
