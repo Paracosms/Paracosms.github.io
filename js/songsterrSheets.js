@@ -69,7 +69,7 @@ function create_instrument_selection_form(instrument_names) {
     form.appendChild(submit);
 }
 
-document.getElementById('instrument_selection').addEventListener('submit', async function(e) {
+document.getElementById('submit_instrument').addEventListener('click', async function(e) {
     e.preventDefault();
 
     const status = document.getElementById('status');
@@ -100,6 +100,7 @@ document.getElementById('instrument_selection').addEventListener('submit', async
         a.href = url;
         document.body.appendChild(a);
         a.click();
+        a.download = "score.musicxml"
         a.remove();
         window.URL.revokeObjectURL(url);
 
