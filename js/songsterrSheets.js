@@ -9,11 +9,9 @@ document.getElementById('url_input').addEventListener('submit', async function(e
     try {
         status.textContent = "Processing. This may take a few minutes depending on server inactivity.";
 
-        const response = await fetch('https://songsterrsheets.onrender.com', {
+        const response = await fetch('https://songsterrsheets.onrender.com/instruments', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ userInput: userInput })
         });
 
@@ -25,18 +23,6 @@ document.getElementById('url_input').addEventListener('submit', async function(e
 
         const instrumentNames = await response.json();
         create_instrument_selection_form(instrumentNames);
-
-        // Receive blob and trigger download
-        /*
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = "result.json";
-        a.click();
-        window.URL.revokeObjectURL(url);
-        status.textContent = "Download ready.";
-        */
 
     } catch (err) {
         console.error(err);
@@ -62,7 +48,7 @@ function create_instrument_selection_form(instrument_names) {
     const submit = document.createElement("button");
     submit.type = "submit";
     submit.id = "submit_instrument";
-    submit.textContent = "Create .musicxml file";
+    submit.textContent = "Convert to .musicxml file";
 
     instrument_names.forEach(([title, subtitle], index) => {
         const option = document.createElement("option");
@@ -86,4 +72,48 @@ function create_instrument_selection_form(instrument_names) {
 document.getElementById('instrument_selection').addEventListener('submit', async function(e) {
     e.preventDefault();
     console.log("Instrument Selection Submitted");
+
+    const status = document.getElementById('status');
+    const submittedInstrumentIndex = document.getElementById('instrument_selection').selectedIndex;
+
+    try {
+        status.textContent = "Converting file to a .musicxml file.";
+
+        const response = await fetch('https://songsterrsheets.onrender.com/musicxml', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ index: submittedInstrumentIndex })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            status.textContent = "Error: " + errorData.message;
+            return;
+        }
+
+
+
+        const blob = await response.blob();
+
+        // Create a temporary download link
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        document.body.appendChild(a);
+        a.click();
+
+        // Cleanup
+        a.remove();
+        window.URL.revokeObjectURL(url);
+
+        status.textContent = "Download complete!";
+
+
+
+
+
+    } catch (err) {
+        console.error(err);
+        status.textContent = "Error: " + err;
+    }
 });
